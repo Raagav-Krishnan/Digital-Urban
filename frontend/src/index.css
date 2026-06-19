@@ -1,0 +1,303 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #eaf1f6;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.28);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.42);
+}
+
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.glass-command {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+}
+
+.dashboard-shell {
+  --dash-edge: clamp(16px, 1.6vw, 24px);
+  --dash-sidebar-width: 64px;
+  --dash-sidebar-gap: clamp(14px, 1.5vw, 20px);
+  --dash-brief-width: clamp(304px, 24vw, 374px);
+  --dash-brief-gap: clamp(16px, 1.6vw, 24px);
+  --dash-left-rail: calc(var(--dash-edge) + var(--dash-sidebar-width) + var(--dash-sidebar-gap));
+  --dash-right-rail: var(--dash-edge);
+  --dash-bottom-rail: clamp(208px, 30vh, 248px);
+}
+
+@media (min-width: 1024px) {
+  .dashboard-shell {
+    --dash-right-rail: calc(var(--dash-edge) + var(--dash-brief-width) + var(--dash-brief-gap));
+  }
+}
+
+@media (max-width: 1023px) {
+  .dashboard-shell {
+    --dash-left-rail: var(--dash-edge);
+    --dash-right-rail: var(--dash-edge);
+  }
+}
+
+.dashboard-sidebar {
+  left: var(--dash-edge);
+  top: 50%;
+  transform: translateY(-50%);
+  max-height: calc(100dvh - (var(--dash-edge) * 2));
+}
+
+.dashboard-command-bar {
+  left: var(--dash-left-rail);
+  right: var(--dash-right-rail);
+  top: var(--dash-edge);
+}
+
+.dashboard-map-controls {
+  right: var(--dash-right-rail);
+  bottom: var(--dash-bottom-rail);
+}
+
+.dashboard-brief-panel {
+  right: var(--dash-edge);
+  top: var(--dash-edge);
+  bottom: var(--dash-edge);
+}
+
+.dashboard-stats-bar {
+  left: var(--dash-left-rail);
+  right: var(--dash-right-rail);
+  bottom: var(--dash-edge);
+}
+
+@media (max-width: 767px) {
+  .dashboard-shell {
+    --dash-bottom-rail: clamp(184px, 28vh, 220px);
+  }
+
+  .dashboard-sidebar {
+    top: var(--dash-edge);
+    transform: none;
+    max-height: none;
+  }
+
+  .dashboard-command-bar {
+    left: var(--dash-edge);
+    right: var(--dash-edge);
+    top: calc(var(--dash-edge) + 74px);
+  }
+
+  .dashboard-map-controls {
+    right: var(--dash-edge);
+    bottom: calc(var(--dash-edge) + 136px);
+  }
+
+  .dashboard-stats-bar {
+    left: var(--dash-edge);
+    right: var(--dash-edge);
+  }
+}
+
+@media (min-width: 1280px) {
+  .dashboard-command-bar {
+    gap: 10px;
+  }
+
+  .dashboard-stats-bar {
+    gap: 10px;
+  }
+}
+
+.map-canvas {
+  background-color: #f5f8f9;
+  background-image:
+    linear-gradient(118deg, transparent 0 10%, rgba(190, 200, 207, 0.35) 10.25% 11.1%, transparent 11.35% 100%),
+    linear-gradient(31deg, transparent 0 27%, rgba(185, 197, 205, 0.32) 27.2% 28.1%, transparent 28.3% 100%),
+    linear-gradient(84deg, transparent 0 45%, rgba(147, 197, 253, 0.2) 45.2% 49%, transparent 49.2% 100%),
+    radial-gradient(circle at 15% 69%, rgba(187, 247, 208, 0.34), transparent 15%),
+    radial-gradient(circle at 78% 21%, rgba(191, 219, 254, 0.42), transparent 21%),
+    linear-gradient(rgba(203, 213, 225, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(203, 213, 225, 0.2) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    56px 56px,
+    56px 56px;
+}
+
+.map-canvas::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 35%),
+    radial-gradient(circle at 50% 50%, transparent 0 40%, rgba(15, 23, 42, 0.08) 100%);
+  z-index: 1;
+}
+
+.map-road,
+.map-road-secondary,
+.water-channel {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.map-road {
+  z-index: 5;
+  background: rgba(157, 171, 187, 0.42);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.68);
+}
+
+.map-road-secondary {
+  z-index: 4;
+  background: rgba(172, 184, 199, 0.34);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.58);
+}
+
+.water-channel {
+  z-index: 3;
+  background: rgba(147, 197, 253, 0.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(96, 165, 250, 0.22),
+    0 0 0 8px rgba(219, 234, 254, 0.46);
+}
+
+.marker-pulse {
+  animation: marker-pulse 2.2s ease-out infinite;
+}
+
+@keyframes marker-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.45;
+  }
+  70% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .glass-command.fixed.top-6.left-24 {
+    left: 104px;
+    right: 88px;
+  }
+}
+
+@media (max-width: 767px) {
+  .glass-command.fixed.top-6.left-24 {
+    left: 24px;
+    right: 24px;
+    top: 92px;
+    border-radius: 24px;
+  }
+
+  .glass-command.fixed.left-6.top-6 {
+    left: 50%;
+    top: 20px;
+    width: auto;
+    transform: translateX(-50%);
+    flex-direction: row;
+    border-radius: 999px;
+  }
+
+  .glass-command.fixed.left-6.top-6 > div:first-child {
+    display: none;
+  }
+
+  .glass-command.fixed.left-6.top-6 > div:last-child {
+    flex-direction: row;
+  }
+
+  .glass-command.fixed.bottom-6.left-6.right-6 {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    max-height: 38vh;
+    overflow-y: auto;
+    border-radius: 28px 28px 20px 20px;
+  }
+
+  .glass-command.fixed.bottom-40.right-6 {
+    bottom: 44vh;
+    right: 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .glass-command.fixed.top-6.left-24 {
+    top: 86px;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .glass-command.fixed.top-6.left-24 label {
+    min-width: 100%;
+  }
+
+  .glass-command.fixed.top-6.left-24 button {
+    height: 42px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
