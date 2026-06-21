@@ -1,61 +1,57 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Bell } from 'lucide-react'
-import Sidebar from './components/Sidebar'
 import MapView from './components/MapView'
-import InfoPanel from './components/InfoPanel'
+import CommandBar from './components/CommandBar'
+import Sidebar from './components/Sidebar'
 import StatsBar from './components/StatsBar'
+import InfoPanel from './components/InfoPanel'
 import AlertDrawer from './components/AlertDrawer'
 import { getHealthStatus } from './services/api'
 
 export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerMode, setDrawerMode] = useState('intel') // 'menu' | 'intel'
   const [backendStatus, setBackendStatus] = useState('Checking...')
 
   useEffect(() => {
     getHealthStatus()
-      .then((data) => {
-        setBackendStatus(data.status)
-      })
-      .catch(() => {
-        setBackendStatus('Offline')
-      })
+      .then((data) => setBackendStatus(data.status))
+      .catch(() => setBackendStatus('Offline'))
   }, [])
 
+  const handleOpenMenu = () => {
+    setDrawerMode('menu')
+    setDrawerOpen(true)
+  }
+
+  const handleOpenIntel = () => {
+    setDrawerMode('intel')
+    setDrawerOpen(true)
+  }
+
   return (
-    <main className="dashboard-shell relative min-h-[100dvh] w-full overflow-hidden bg-[#eaf1f6] font-sans text-text-primary">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="absolute inset-0"
-      >
+    <main className="h-screen w-screen overflow-hidden bg-slate-900 font-sans text-text-primary">
+      {/* Map Layer — z-index 0: full-viewport foundation */}
+      <div className="fixed inset-0 z-0">
         <MapView />
-      </motion.div>
-
-      <Sidebar />
-      <InfoPanel />
-      <StatsBar />
-
-      <motion.button
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0.18 }}
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.96 }}
-        onClick={() => setDrawerOpen(true)}
-        className="glass-command fixed right-6 top-6 z-50 flex h-12 w-12 items-center justify-center rounded-full text-slate-700 shadow-float transition duration-300 hover:text-danger lg:hidden"
-        aria-label="Open intelligence brief"
-      >
-        <Bell size={19} strokeWidth={2.25} />
-        <span className="absolute right-2.5 top-2.5 h-2.5 w-2.5 rounded-full bg-danger ring-2 ring-white" />
-      </motion.button>
-
-      <div className="fixed bottom-6 left-6 z-50 rounded-xl bg-white px-4 py-2 shadow-lg">
-        Backend Status: {backendStatus}
       </div>
 
-      <AlertDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      {/* Top Command Bar — z-index 20 */}
+      <CommandBar onMenuClick={handleOpenMenu} onIntelClick={handleOpenIntel} />
+
+      {/* Left Floating Toolbar — z-index 30 */}
+      <Sidebar backendStatus={backendStatus} />
+
+      {/* Bottom Analytics Bar — z-index 30 */}
+      <StatsBar />
+
+      {/* Right Intelligence Panel — z-index 40 */}
+      <InfoPanel />
+
+      {/* Unified Mobile/Tablet Slide-over Drawers — z-index 50 */}
+      <AlertDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} mode={drawerMode} />
     </main>
   )
 }
+
