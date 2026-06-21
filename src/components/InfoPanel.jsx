@@ -48,21 +48,22 @@ export default function InfoPanel() {
       initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
-      className="fixed right-[18px] top-[18px] z-30 hidden w-[clamp(280px,22vw,340px)] max-h-[calc(100vh-36px)] flex-col overflow-y-auto rounded-[28px] glass-premium p-5 shadow-float lg:flex"
+      className="fixed right-6 top-[90px] bottom-6 z-40 hidden w-[320px] xl:w-[350px] flex-col overflow-y-auto rounded-[32px] glass-premium p-5 shadow-float border border-white/60 lg:flex"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-400">
             Urban Sentinel
           </p>
-          <h1 className="mt-1 text-[28px] font-extrabold leading-tight text-slate-950">
+          <h1 className="mt-1 text-[24px] font-extrabold leading-tight text-slate-900">
             Intelligence Brief
           </h1>
         </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
           <Radio size={18} strokeWidth={2.4} />
         </div>
       </div>
+
 
       <section className="mt-6 rounded-3xl border border-white/75 bg-white/62 p-4 shadow-soft">
         <div className="flex items-center justify-between gap-3">

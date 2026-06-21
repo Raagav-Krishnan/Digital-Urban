@@ -42,29 +42,30 @@ const kpis = [
 
 export default function StatsBar() {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: -22 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
-      className="fixed top-[18px] left-1/2 z-20 -translate-x-1/2 flex items-stretch gap-2 rounded-[20px] glass-premium p-2.5 shadow-float md:gap-3 md:p-3"
-    >
+    <div className="fixed bottom-4 left-4 right-4 z-30 pointer-events-none flex justify-center md:bottom-6 md:left-[88px] md:right-6 lg:right-[344px] xl:right-[374px]">
+      <motion.section
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
+        className="pointer-events-auto w-full max-w-[700px] xl:max-w-[800px] flex items-stretch gap-2 rounded-[24px] lg:rounded-[32px] glass-premium p-2 shadow-float overflow-x-auto no-scrollbar md:gap-3 md:p-3"
+      >
       {kpis.map((kpi, index) => {
         const Icon = kpi.icon
         const TrendIcon = kpi.trendUp ? TrendingUp : TrendingDown
         return (
           <motion.article
             key={kpi.label}
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.32, delay: 0.08 * index }}
             whileHover={{ y: -3 }}
-            className="min-w-0 flex-1 rounded-2xl border border-white/75 bg-white/64 p-2.5 shadow-soft transition duration-300 hover:bg-white/90 md:p-3.5 md:min-w-[130px]"
+            className="min-w-[130px] flex-1 rounded-[18px] lg:rounded-[24px] border border-white/70 bg-white/60 p-2.5 shadow-soft transition duration-300 hover:bg-white/85 md:p-3.5"
           >
             <div className="flex items-center justify-between gap-1.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full md:h-9 md:w-9" style={{ backgroundColor: `${kpi.color}18`, color: kpi.color }}>
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full md:h-9 md:w-9" style={{ backgroundColor: `${kpi.color}15`, color: kpi.color }}>
                 <Icon size={15} strokeWidth={2.4} />
               </div>
-              <div className="flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[9px] font-extrabold text-slate-500 md:px-2 md:py-1 md:text-[10px]">
+              <div className="flex items-center gap-1 rounded-full bg-slate-100/80 px-1.5 py-0.5 text-[9px] font-extrabold text-slate-500 md:px-2 md:py-1 md:text-[10px]">
                 <TrendIcon size={10} />
                 {kpi.trend}
               </div>
@@ -78,16 +79,16 @@ export default function StatsBar() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.32, delay: 0.18 + index * 0.06 }}
-                className="tabular-nums text-[22px] font-extrabold leading-none text-slate-950 md:text-[27px]"
+                className="tabular-nums text-[20px] font-extrabold leading-none text-slate-950 md:text-[25px]"
               >
                 {kpi.value}
               </motion.span>
               {kpi.suffix && (
-                <span className="pb-0.5 text-[11px] font-extrabold text-slate-400 md:pb-1 md:text-[13px]">{kpi.suffix}</span>
+                <span className="pb-0.5 text-[11px] font-extrabold text-slate-400 md:pb-1 md:text-[12px]">{kpi.suffix}</span>
               )}
             </div>
 
-            <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-slate-200/80 md:mt-2.5 md:h-1.5">
+            <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-slate-200/50 md:mt-2.5 md:h-1.5">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: kpi.suffix ? `${kpi.value}%` : `${Math.min(kpi.value * 5, 92)}%` }}
@@ -99,6 +100,7 @@ export default function StatsBar() {
           </motion.article>
         )
       })}
-    </motion.section>
+      </motion.section>
+    </div>
   )
 }

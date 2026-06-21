@@ -10,8 +10,10 @@ html,
 body,
 #root {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 body {
@@ -29,9 +31,10 @@ input {
   font: inherit;
 }
 
+/* Custom premium scrollbar for cards */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -39,12 +42,12 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.25);
+  background: rgba(15, 23, 42, 0.15);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.4);
+  background: rgba(15, 23, 42, 0.3);
 }
 
 :focus-visible {
@@ -52,15 +55,39 @@ input {
   outline-offset: 3px;
 }
 
+/* Premium Light Frosted Glassmorphism */
 .glass-premium {
   background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.03),
+    0 20px 50px -12px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
+/* Leaflet map-first canvas overrides */
 .leaflet-container {
   z-index: 0 !important;
+  background-color: #aad3df !important; /* Ocean color match to prevent flashing gray */
+}
+
+/* Float attribution cleanly */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 2px 8px !important;
+  border-radius: 8px 0 0 0 !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #2563eb !important;
+  font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -73,3 +100,4 @@ input {
     transition-duration: 0.01ms !important;
   }
 }
+
