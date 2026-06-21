@@ -48,7 +48,7 @@ export default function InfoPanel() {
       initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
-      className="dashboard-brief-panel glass-command fixed z-40 hidden w-[clamp(304px,24vw,374px)] flex-col overflow-hidden rounded-[28px] p-5 shadow-float lg:flex"
+      className="fixed right-[18px] top-[18px] z-30 hidden w-[clamp(280px,22vw,340px)] max-h-[calc(100vh-36px)] flex-col overflow-y-auto rounded-[28px] glass-premium p-5 shadow-float lg:flex"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -82,7 +82,7 @@ export default function InfoPanel() {
         </p>
       </section>
 
-      <section className="mt-6 min-h-0 overflow-y-auto pr-1">
+      <section className="mt-6">
         <div className="mb-4 flex items-center justify-between">
           <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-400">
             Active Alerts

@@ -33,14 +33,13 @@ export default function AlertDrawer({ open, onClose }) {
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-slate-900/20 backdrop-blur-sm"
           />
 
           <motion.div
@@ -48,7 +47,7 @@ export default function AlertDrawer({ open, onClose }) {
             animate={{ x: 0, y: 0, opacity: 1 }}
             exit={{ x: 24, y: 40, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="glass-command fixed bottom-4 left-4 right-4 z-50 flex max-h-[calc(100dvh-1rem)] flex-col rounded-[28px] p-5 shadow-float sm:left-auto sm:top-4 sm:h-[calc(100dvh-2rem)] sm:max-h-[calc(100dvh-2rem)] sm:w-full sm:max-w-sm sm:p-6"
+            className="glass-premium fixed bottom-4 left-4 right-4 z-[61] flex max-h-[calc(100dvh-1rem)] flex-col rounded-[28px] p-5 shadow-float sm:left-auto sm:top-4 sm:h-[calc(100dvh-2rem)] sm:max-h-[calc(100dvh-2rem)] sm:w-full sm:max-w-sm sm:p-6"
           >
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
